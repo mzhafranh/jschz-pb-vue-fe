@@ -17,26 +17,26 @@ interface AddPhonebookParams {
 }
 
 interface RemovePhonebookParams {
-  id: number;
+  id: string;
   keyword: string;
   sort: string
 }
 
 interface UpdatePhonebookParams {
-  id: number;
+  id: string;
   name: string;
   phone: string;
 }
 
 interface HandleFileUploadParams {
   file: string;
-  id: number;
+  id: string;
   keyword: string;
   sort: string
 }
 
 interface Phonebook {
-  id: number;
+  id: string;
   name: string;
   phone: string;
   avatar: string | null;
