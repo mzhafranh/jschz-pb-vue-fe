@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 
+
 const local_url = 'http://192.168.1.34:3001'
 
 interface FetchPhonebookParams {
@@ -271,7 +272,7 @@ export const usePhonebookStore = defineStore('phonebook', {
         const formData = new FormData();
         formData.append('avatar', file);
 
-        const response = await fetch(`${local_url}/graphql`, {
+        const response = await fetch(`${local_url}/graphql/avatar/${id}`, {
           method: 'POST',
           body: formData,
         });
