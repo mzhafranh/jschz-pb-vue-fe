@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 
 
-const local_url = 'http://192.168.1.34:3001'
+const local_url = 'http://192.168.1.2:3001'
 
 interface FetchPhonebookParams {
   keyword: string;
@@ -100,7 +100,6 @@ export const usePhonebookStore = defineStore('phonebook', {
         if (result.errors) throw new Error(result.errors[0].message);
         const data = result.data.fetchPhonebooks
 
-
         this.setSort(sort);
         this.setKeyword(keyword);
         this.setTotalPage(data.pages);
@@ -150,10 +149,14 @@ export const usePhonebookStore = defineStore('phonebook', {
         if (result.errors) throw new Error(result.errors[0].message);
         const data = result.data.fetchPhonebooks
 
+        console.log(data)
+
         this.setPage(1);
         this.setSort(sort);
         this.setTotalPage(data.pages);
+        console.log('update total page')
         this.phonebooks = data.phonebooks;
+        console.log('update phonebooks')
       } catch (error) {
         if (error instanceof Error) {
           this.error = error.message; // Access the 'message' property safely
