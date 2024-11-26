@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 
 
-const local_url = 'http://192.168.1.2:3001'
+const local_url = 'http://192.168.1.34:3001'
 
 interface FetchPhonebookParams {
   keyword: string;

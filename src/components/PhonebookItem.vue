@@ -1,14 +1,14 @@
 <template>
   <div class="custom-width mb-1 mt-3" aria-label="PhonebookItem">
     <div class="card" style="background: #CCC; padding-left: 5px;">
-      <div class="row g-0">
-        <div class="col-left circle-icon mt-2 mb-2" @click="handleIconClick" style="cursor: pointer;">
+      <div class="row">
+        <div class="col-left circle-icon" @click="handleIconClick" style="cursor: pointer;">
           <img v-if="avatar !== 'null'" :src="`http://localhost:3001/uploads/${avatar}`" style="height: 100%;"
             alt="profile" />
           <FontAwesomeIcon v-else :icon="faUserTie" />
         </div>
         <div class="col-right">
-          <div class="card-body p-2">
+          
             <template v-if="isEditing">
               <input type="text" v-model="editableName" class="custom-form-control" style="margin-bottom: 5px;"
                 aria-label="edit-name" />
@@ -34,7 +34,7 @@
                 </button>
               </div>
             </template>
-          </div>
+          
         </div>
       </div>
     </div>
@@ -158,17 +158,20 @@ export default {
 }
 
 .card {
-  border: 1px solid #000000;
-  border-radius: 0.25rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-  transition: all 0.3s ease-in-out;
-  max-width: 18rem;
-  flex-direction: column;
+    /* display: flex; */
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+    border: 1px solid #000000; 
+    border-radius: 0.25rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    transition: all 0.3s ease-in-out;
 }
 
 .row {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .col {
@@ -191,18 +194,46 @@ export default {
 }
 
 .col-left {
-  flex: 1;
+  /* flex: 1; */
   margin-right: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .col-right {
   flex: 2;
   margin-top: 16px;
   align-items: stretch;
+  display: flex;
+  flex-direction: column;
 }
 
 .row-item {
   margin-bottom: 5px;
   
+}
+
+/* Responsive design */
+@media (min-width: 768px) {
+  .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .card {
+    flex: 0 0 100%; /* Full width on smaller screens */
+    max-width: none; /* Remove max-width limitation */
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    flex: 0 0 100%;
+    max-width: none; /* Full width */
+  }
 }
 </style>
