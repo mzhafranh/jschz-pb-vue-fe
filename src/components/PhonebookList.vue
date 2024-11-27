@@ -1,7 +1,11 @@
 <template>
     <div class="card-container" style="margin-top: 20px" aria-label="PhonebookList">
-        <PhonebookItem v-for="(phonebook, index) in phonebooks" :key="phonebook.id" :id="phonebook.id"
-            :avatar="phonebook.avatar || 'null'" :name="phonebook.name" :phone="phonebook.phone" />
+        <PhonebookItem v-for="(phonebook, index) in phonebooks" 
+        :key="phonebook.id" 
+        :id="phonebook.id"
+        :avatar="phonebook.avatar || 'null'" 
+        :name="phonebook.name" 
+        :phone="phonebook.phone"/>
     </div>
 </template>
 

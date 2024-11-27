@@ -14,9 +14,11 @@
                 aria-label="edit-name" />
               <input type="text" v-model="editablePhone" class="custom-form-control" style="margin-bottom: 5px;"
                 aria-label="edit-phone" />
+                <div class="row-item">
               <button class="btn" @click="handleSave" aria-label="save-item">
                 <FontAwesomeIcon :icon="faFloppyDisk" />
               </button>
+              </div>
             </template>
             <template v-else>
               <div class="row-item">
@@ -34,7 +36,6 @@
                 </button>
               </div>
             </template>
-          
         </div>
       </div>
     </div>
@@ -75,27 +76,25 @@ export default {
     const phonebookStore = usePhonebookStore();
     const { updatePhonebook, handleFileUpload } = phonebookStore;
 
-    // Reactive data
-    const state = reactive({
-      isEditing: false,
-      editableName: props.name,
-      editablePhone: props.phone,
-    });
-
+    const editableName = ref(props.name);
+    const editablePhone = ref(props.phone);
+    const isEditing = ref(false);
     const fileInputRef = ref(null);
 
     // Methods
     const toggleEdit = () => {
-      state.isEditing = !state.isEditing;
+      isEditing.value = !isEditing.value;
+      console.log("isEditing", isEditing.value)
     };
 
     const handleSave = () => {
+      console.log(editableName, editablePhone)
       updatePhonebook({
         id: props.id,
-        name: state.editableName,
-        phone: state.editablePhone,
+        name: editableName.value,
+        phone: editablePhone.value,
       });
-      state.isEditing = false;
+      isEditing.value = false;
     };
 
     const handleIconClick = () => {
@@ -117,7 +116,6 @@ export default {
     };
 
     return {
-      ...state,
       fileInputRef,
       toggleEdit,
       handleSave,
@@ -126,7 +124,10 @@ export default {
       faUserTie,
       faPenToSquare,
       faFloppyDisk,
-      faTrashCan
+      faTrashCan,
+      isEditing,
+      editableName,
+      editablePhone
     };
   },
 };
@@ -207,11 +208,28 @@ export default {
   align-items: stretch;
   display: flex;
   flex-direction: column;
+  padding-right: 8px;
 }
 
 .row-item {
   margin-bottom: 5px;
   
+}
+
+.custom-form-control {
+  display: block;
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1;
+  color: #212529;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  appearance: none;
+  border-radius: 1px;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
 /* Responsive design */
