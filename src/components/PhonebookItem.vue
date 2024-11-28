@@ -31,9 +31,7 @@
                 <button class="btn p-1" @click="toggleEdit" aria-label="edit-item">
                   <FontAwesomeIcon :icon="faPenToSquare" />
                 </button>
-                <button class="btn p-1" @click="handleOpenConfirmation" aria-label="delete-item">
-                  <FontAwesomeIcon :icon="faTrashCan" />
-                </button>
+                <PhonebookDeleteConfirmation :id = "props.id"/>
               </div>
             </template>
         </div>
@@ -48,11 +46,13 @@ import { ref, reactive } from "vue";
 import { usePhonebookStore } from "@/stores/phonebookStore";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faUserTie, faPenToSquare, faFloppyDisk, faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import PhonebookDeleteConfirmation from "./PhonebookDeleteConfirmation.vue";
 
 export default {
   name: "PhonebookItem",
   components: {
     FontAwesomeIcon,
+    PhonebookDeleteConfirmation
   },
   props: {
     id: {
@@ -127,7 +127,8 @@ export default {
       faTrashCan,
       isEditing,
       editableName,
-      editablePhone
+      editablePhone,
+      props
     };
   },
 };
