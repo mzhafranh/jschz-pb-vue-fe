@@ -69,7 +69,7 @@ export default defineComponent({
     // Navigates to the form screen and clears the store
     const goToFormScreen = () => {
       clearPhonebook();
-      router.replace({ name: 'Form' });
+      router.replace('/add');
     };
 
     return {

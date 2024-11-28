@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import TheWelcome from '../components/TheWelcome.vue'
+import PhonebookBox from '@/components/PhonebookBox.vue';
 </script>
 
 <template>
-  <main>
-    <TheWelcome />
-  </main>
+    <PhonebookBox />
 </template>

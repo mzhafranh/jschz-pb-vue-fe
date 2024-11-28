@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import PhonebookBox from '@/components/PhonebookBox.vue';
+import HomeView from './views/HomeView.vue';
 </script>
 
 <template>
-    <PhonebookBox />
+    <main>
+      <router-view />
+    </main>
 </template>
 
 
