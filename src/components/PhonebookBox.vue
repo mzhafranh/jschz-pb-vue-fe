@@ -1,6 +1,6 @@
 <template>
   <div style="background-color: white;">
-    <div v-if="phonebooks && phonebooks.length > 0">
+    <div v-if="phonebooks">
       <PhonebookTopBar/>
       <PhonebookList/>
     </div>

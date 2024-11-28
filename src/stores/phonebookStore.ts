@@ -116,6 +116,7 @@ export const usePhonebookStore = defineStore('phonebook', {
     },
 
     async refreshPhonebookData({ keyword, sort, page }: FetchPhonebookParams) {
+      console.log(keyword, sort, page)
       this.loading = true;
       const query = keyword;
       const limit = 10;

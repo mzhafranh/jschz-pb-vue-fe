@@ -48,7 +48,12 @@ export default defineComponent({
       phonebookStore;
 
     const sort = computed(() => phonebookStore.sort);
-    const keyword = computed(() => phonebookStore.keyword);
+    const keyword = computed({
+      get: () => phonebookStore.keyword,
+      set: (value) => {
+        phonebookStore.keyword = value;
+      },
+    });
 
     // Handles search input changes
     const handleSearchChange = () => {
