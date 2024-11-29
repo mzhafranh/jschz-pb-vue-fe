@@ -1,7 +1,8 @@
 <template>
   <div style="background-color: white;">
-    <div v-if="phonebooks">
+    <div v-if="phonebooks" class="scroll-container">
       <PhonebookTopBar/>
+      {{page}}
       <PhonebookList/>
     </div>
     <div v-else>
@@ -11,11 +12,12 @@
 </template>
 
 <script lang="ts">
-import { onMounted } from "vue";
+import { onMounted, onBeforeUnmount } from "vue";
 import { computed } from "vue";
 import { usePhonebookStore } from "@/stores/phonebookStore";
 import PhonebookTopBar from "@/components/PhonebookTopBar.vue";
 import PhonebookList from "@/components/PhonebookList.vue";
+import { throttle } from "lodash";
 
 export default {
   name: "PhonebookBox",
@@ -25,8 +27,13 @@ export default {
   },
   setup() {
     const phonebookStore = usePhonebookStore(); // Access the Pinia store
-    const { keyword, sort, refreshPhonebookData } =  phonebookStore;
+    const { keyword, sort, setPage, refreshPhonebookData, fetchPhonebookData } =  phonebookStore;
     const phonebooks = computed(() => phonebookStore.phonebooks);
+    const page = computed(() => phonebookStore.page);
+    const loading = computed(() => phonebookStore.loading);
+    const totalPage = computed(() => phonebookStore.totalPage);
+    const isLastPage = computed(() => page.value >= totalPage.value);
+
 
     // Fetch data on component mount
     onMounted(() => {
@@ -36,8 +43,40 @@ export default {
       }
     });
 
+    // Infinite scroll handler
+    const handleScroll = throttle(() => {
+      const scrollContainer = document.querySelector(".scroll-container");
+      const nearBottom =
+      window.innerHeight + document.documentElement.scrollTop >=
+      scrollContainer.clientHeight - 100;
+
+      console.log(window.innerHeight, document.documentElement.scrollTop, scrollContainer.clientHeight)
+
+      // const nearBottom =
+      //   window.innerHeight + document.documentElement.scrollTop >=
+      //   document.documentElement.offsetHeight - 300;
+
+      //   console.log(window.innerHeight, document.documentElement.scrollTop, document.documentElement.offsetHeight)
+
+      if (nearBottom && !loading.value && !isLastPage.value) {
+        console.log("Triggered scroll");
+        setPage(page.value + 1);
+        fetchPhonebookData({ keyword, sort, page: page.value });
+      }
+    }, 500);
+
+    onMounted(() => {
+      window.addEventListener("scroll", handleScroll);
+    });
+
+    onBeforeUnmount(() => {
+      window.removeEventListener("scroll", handleScroll);
+    });
+
+
     return {
       phonebooks,
+      page
     };
   },
 };
