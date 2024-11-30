@@ -2,7 +2,6 @@
   <div style="background-color: white;">
     <div v-if="phonebooks" class="scroll-container">
       <PhonebookTopBar/>
-      {{page}}
       <PhonebookList/>
     </div>
     <div v-else>
@@ -27,19 +26,21 @@ export default {
   },
   setup() {
     const phonebookStore = usePhonebookStore(); // Access the Pinia store
-    const { keyword, sort, setPage, refreshPhonebookData, fetchPhonebookData } =  phonebookStore;
+    const { setPage, refreshPhonebookData, fetchPhonebookData } =  phonebookStore;
     const phonebooks = computed(() => phonebookStore.phonebooks);
     const page = computed(() => phonebookStore.page);
     const loading = computed(() => phonebookStore.loading);
     const totalPage = computed(() => phonebookStore.totalPage);
     const isLastPage = computed(() => page.value >= totalPage.value);
+    const keyword = computed(() => phonebookStore.keyword);
+    const sort = computed(() => phonebookStore.sort);
 
 
     // Fetch data on component mount
     onMounted(() => {
       if (!phonebooks.value.length) {
         console.log("Fetch in PhonebookBox");
-        refreshPhonebookData({ keyword, sort, page: 1 });
+        refreshPhonebookData({ keyword: keyword.value, sort: sort.value, page: 1 });
       }
     });
 
@@ -61,7 +62,7 @@ export default {
       if (nearBottom && !loading.value && !isLastPage.value) {
         console.log("Triggered scroll");
         setPage(page.value + 1);
-        fetchPhonebookData({ keyword, sort, page: page.value });
+        fetchPhonebookData({ keyword: keyword.value, sort: sort.value, page: page.value });
       }
     }, 500);
 

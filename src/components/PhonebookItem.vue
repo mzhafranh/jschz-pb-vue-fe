@@ -42,7 +42,7 @@
 </template>
 
 <script lang="ts">
-import { ref, reactive } from "vue";
+import { ref } from "vue";
 import { usePhonebookStore } from "@/stores/phonebookStore";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faUserTie, faPenToSquare, faFloppyDisk, faTrashCan } from "@fortawesome/free-solid-svg-icons";
