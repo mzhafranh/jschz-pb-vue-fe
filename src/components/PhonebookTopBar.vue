@@ -62,7 +62,7 @@ export default defineComponent({
 
     // Toggles the sort order and fetches new data
     const handleSortChange = () => {
-      let newSortOrder = phonebookStore.sort === 'asc' ? 'desc' : 'asc';
+      const newSortOrder = phonebookStore.sort === 'asc' ? 'desc' : 'asc';
       refreshPhonebookData({ keyword: phonebookStore.keyword, sort: newSortOrder, page: 1 });
     };
 
