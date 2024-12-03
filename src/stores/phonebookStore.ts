@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 
 
-const local_url = 'http://192.168.1.2:3001'
+const local_url = 'http://192.168.1.34:3001'
 
 interface FetchPhonebookParams {
   keyword: string;
@@ -85,6 +85,7 @@ export const usePhonebookStore = defineStore('phonebook', {
                     id
                     name
                     phone
+                    avatar
                   }
                   page
                   limit
@@ -137,6 +138,7 @@ export const usePhonebookStore = defineStore('phonebook', {
                     id
                     name
                     phone
+                    avatar
                   }
                   page
                   limit
@@ -219,6 +221,7 @@ export const usePhonebookStore = defineStore('phonebook', {
                   id
                   name
                   phone
+                  avatar
                 }
               }
             `,
@@ -252,6 +255,7 @@ export const usePhonebookStore = defineStore('phonebook', {
                   id
                   name
                   phone
+                  avatar
                 }
               }
             `,
@@ -273,8 +277,6 @@ export const usePhonebookStore = defineStore('phonebook', {
     async handleFileUpload({ file, id, keyword, sort }: HandleFileUploadParams) {
       try {
         if (!file) throw new Error('Please select a file first');
-
-        
 
         const formData = new FormData();
         formData.append('avatar', file);

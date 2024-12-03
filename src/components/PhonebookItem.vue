@@ -3,7 +3,7 @@
     <div class="card" style="background: #CCC; padding-left: 5px;">
       <div class="row">
         <div class="col-left circle-icon" @click="handleIconClick" style="cursor: pointer;">
-          <img v-if="avatar !== 'null'" :src="`http://localhost:3001/uploads/${avatar}`" style="height: 100%;"
+          <img v-if="props.avatar !== 'null'" :src="`http://localhost:3001/uploads/${avatar}`" style="height: 100%;"
             alt="profile" />
           <FontAwesomeIcon v-else :icon="faUserTie" />
         </div>
