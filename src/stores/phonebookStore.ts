@@ -120,7 +120,7 @@ export const usePhonebookStore = defineStore('phonebook', {
     },
 
     async refreshPhonebookData({ keyword, sort, page }: FetchPhonebookParams) {
-      console.log(keyword, sort, page)
+      console.log('refresh', keyword, sort, page)
       this.loading = true;
       const query = keyword;
       const limit = 10;
@@ -265,6 +265,7 @@ export const usePhonebookStore = defineStore('phonebook', {
     
         const result = await response.json();
         if (result.errors) throw new Error(result.errors[0].message);
+        await this.refreshPhonebookData({ keyword: this.keyword, sort: this.sort, page: 1 });
       } catch (error) {
         if (error instanceof Error) {
           this.error = error.message; // Access the 'message' property safely
